@@ -1,11 +1,13 @@
 package prog.cipfpbatoi;
 
+import java.util.StringTokenizer;
+
 class Fecha {
-	
+
 	private int dia;
-	
+
 	private int mes;
-	
+
 	private int anyo;
 
 	private static final String[] DIAS_TEXTO = new String[] { "domingo", "lunes", "martes", "miercoles", "jueves", "viernes",
@@ -19,7 +21,9 @@ class Fecha {
 	 *  Inicializa una fecha a dia 1-1-1970
 	 */
 	public Fecha() {
-		// tu codigo aqui
+		this.dia = 1;
+		this.mes = 1;
+		this.anyo = 1970;
 	}
 
 	/**
@@ -29,7 +33,9 @@ class Fecha {
 	 *  @param anyo
 	 */
 	public Fecha(int dia, int mes, int anyo) {
-		// Tu código aquí
+		this.dia = dia;
+		this.mes = mes;
+		this.anyo = anyo;
 	}
 
 	/**
@@ -39,14 +45,19 @@ class Fecha {
 	 * @param fecha
 	 */
 	public Fecha(String fecha) {
-		// Tu código aquí
+		StringTokenizer st = new StringTokenizer(fecha);
+		this.dia = Integer.valueOf(st.nextToken());
+		this.mes = Integer.valueOf(st.nextToken());
+		this.anyo = Integer.valueOf(st.nextToken());
 	}
 
 	/**
 	 * Modifica la fecha actual a partir de los datos pasados como argumento
 	 */
 	public void set(int dia, int mes, int anyo) {
-		// Tu código aquí
+		this.dia = dia;
+		this.mes = mes;
+		this.anyo = anyo;
 	}
 
 	/**
@@ -54,7 +65,8 @@ class Fecha {
 	 * @return
 	 */
 	public Fecha clone() {
-		return null;
+		Fecha clon = new Fecha(this.dia,this.mes,this.anyo);
+		return clon;
 	}
 
 	/**
@@ -62,7 +74,7 @@ class Fecha {
 	 * @return @dia
 	 */
 	public int getDia() {
-		return 0;
+		return dia;
 	}
 
 	/**
@@ -70,7 +82,7 @@ class Fecha {
 	 * @return @mes
 	 */
 	public int getMes(){
-		return 0;
+		return mes;
 	}
 
 	/**
@@ -78,21 +90,21 @@ class Fecha {
 	 * @return @mes
 	 */
 	public int getAnyo(){
-		return 0;
+		return anyo;
 	}
 
 	/**
 	 * Muestra por pantalla la fecha en formato español dd-mm-yyyy
 	 */
 	public void mostrarFormatoES()  {
-		// Tu código aquí
+		System.out.println(this.dia+"-"+this.mes+"-"+this.anyo);
 	}
 
 	/**
 	 * Muestra por pantalla la fecha en formato inglés yyyy-mm-dd
 	 */
 	public void mostrarFormatoGB() {
-		// Tu código aquí
+		System.out.println(this.anyo+"-"+this.mes+"-"+this.dia);
 	}
 
 	/**
@@ -100,7 +112,14 @@ class Fecha {
 	 * Ej. 1 enero de 1970
 	 */
 	public void mostrarFormatoTexto() {
-		// Tu código aquí
+		String mesActual ="a";
+		String[] mes = {"enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "setiembre", "octubre", "noviembre", "diciembre"};
+		for (int i = 0; i <mes.length ; i++) {
+			if (i==this.mes){
+				mesActual = mes[i];
+			}
+		}
+		System.out.println(this.dia+"-"+mesActual+"-"+this.anyo);
 	}
 
 	/**
@@ -110,6 +129,11 @@ class Fecha {
 	 * @return boolean
 	 */
 	public boolean isEqual(Fecha otraFecha) {
+		if (otraFecha.getDia()==this.dia){
+		}else if (otraFecha.getMes()==this.mes){
+		}else if (otraFecha.getAnyo()==this.anyo){
+			return true;
+		}
 		return false;
 	}
 
@@ -217,3 +241,4 @@ class Fecha {
 		return 0;
 	}
 }
+
