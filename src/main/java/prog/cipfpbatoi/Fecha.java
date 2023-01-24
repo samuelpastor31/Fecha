@@ -200,7 +200,7 @@ class Fecha {
 	 * @return int
 	 */
 	private int getDiasTranscurridosOrigen() {
-		return 0;
+return 0;
 	}
 
 	/**
@@ -219,6 +219,9 @@ class Fecha {
 	 * @return boolean
 	 */
 	public static boolean isBisiesto(int anyo){
+		if ((anyo % 4 == 0) && ((anyo % 100 != 0) || (anyo % 400 == 0))){
+			return true;
+		}
 		return false;
 	}
 
@@ -238,7 +241,10 @@ class Fecha {
 	 * @return int total dias anyo en curso
 	 */
 	public static int getDiasAnyo(int anyo){
-		return 0;
+		if (isBisiesto(anyo)==true){
+			return 366;
+		}
+		return 365;
 	}
 }
 
