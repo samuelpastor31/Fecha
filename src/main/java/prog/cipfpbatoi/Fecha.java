@@ -1,5 +1,6 @@
 package prog.cipfpbatoi;
 
+import java.util.Calendar;
 import java.util.StringTokenizer;
 
 class Fecha {
@@ -10,15 +11,15 @@ class Fecha {
 
 	private int anyo;
 
-	private static final String[] DIAS_TEXTO = new String[] { "domingo", "lunes", "martes", "miercoles", "jueves", "viernes",
+	private static final String[] DIAS_TEXTO = new String[]{"domingo","lunes", "martes", "miercoles", "jueves", "viernes",
 			"sábado"};
 
-	private static final String[] MESES_TEXTO = new String[] { "enero", "febrero", "marzo", "abril", "mayo", "junio",
-			"julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre" };
+	private static final String[] MESES_TEXTO = new String[]{"enero", "febrero", "marzo", "abril", "mayo", "junio",
+			"julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"};
 
 	/**
-	 *  Constructor por defecto
-	 *  Inicializa una fecha a dia 1-1-1970
+	 * Constructor por defecto
+	 * Inicializa una fecha a dia 1-1-1970
 	 */
 	public Fecha() {
 		this.dia = 1;
@@ -27,10 +28,11 @@ class Fecha {
 	}
 
 	/**
-	 *  Inicializa la fecha
-	 *  @param dia de la semana
-	 *  @param mes del año
-	 *  @param anyo
+	 * Inicializa la fecha
+	 *
+	 * @param dia  de la semana
+	 * @param mes  del año
+	 * @param anyo
 	 */
 	public Fecha(int dia, int mes, int anyo) {
 		this.dia = dia;
@@ -40,12 +42,13 @@ class Fecha {
 
 	/**
 	 * Inicializa la fecha a partir de otra pasada en formato String dd/mm/yyyy
-	 *
+	 * <p>
 	 * Deberemos trocearlas de forma que asignemos el día més y año a cada uno de los atributoe
+	 *
 	 * @param fecha
 	 */
 	public Fecha(String fecha) {
-		StringTokenizer st = new StringTokenizer(fecha);
+		StringTokenizer st = new StringTokenizer(fecha, "/");
 		this.dia = Integer.valueOf(st.nextToken());
 		this.mes = Integer.valueOf(st.nextToken());
 		this.anyo = Integer.valueOf(st.nextToken());
@@ -62,15 +65,17 @@ class Fecha {
 
 	/**
 	 * Obtiene una fecha con los mismos atributos que la fecha actual
+	 *
 	 * @return
 	 */
 	public Fecha clone() {
-		Fecha clon = new Fecha(this.dia,this.mes,this.anyo);
+		Fecha clon = new Fecha(this.dia, this.mes, this.anyo);
 		return clon;
 	}
 
 	/**
 	 * Devuelve el día de la semana que representa por la Fecha actual
+	 *
 	 * @return @dia
 	 */
 	public int getDia() {
@@ -79,32 +84,34 @@ class Fecha {
 
 	/**
 	 * Devuelve el mes que representa la Fecha actual
+	 *
 	 * @return @mes
 	 */
-	public int getMes(){
+	public int getMes() {
 		return mes;
 	}
 
 	/**
 	 * Devuelve el año que representa la Fecha actual
+	 *
 	 * @return @mes
 	 */
-	public int getAnyo(){
+	public int getAnyo() {
 		return anyo;
 	}
 
 	/**
 	 * Muestra por pantalla la fecha en formato español dd-mm-yyyy
 	 */
-	public void mostrarFormatoES()  {
-		System.out.println(this.dia+"-"+this.mes+"-"+this.anyo);
+	public void mostrarFormatoES() {
+		System.out.printf("%02d-%02d-%d",this.dia, this.mes, this.anyo);
 	}
 
 	/**
 	 * Muestra por pantalla la fecha en formato inglés yyyy-mm-dd
 	 */
 	public void mostrarFormatoGB() {
-		System.out.println(this.anyo+"-"+this.mes+"-"+this.dia);
+		System.out.printf("%d-%02d-%02d",this.anyo, this.mes, this.dia);
 	}
 
 	/**
@@ -112,14 +119,14 @@ class Fecha {
 	 * Ej. 1 enero de 1970
 	 */
 	public void mostrarFormatoTexto() {
-		String mesActual ="a";
-		String[] mes = {"enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "setiembre", "octubre", "noviembre", "diciembre"};
-		for (int i = 0; i <mes.length ; i++) {
-			if (i==this.mes){
-				mesActual = mes[i];
+		String mesActual = " ";
+		String[] meses = {"enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "setiembre", "octubre", "noviembre", "diciembre"};
+		for (int i = 0; i < MESES_TEXTO.length; i++) {
+			if (i == mes-1) {
+				mesActual = meses[i];
 			}
 		}
-		System.out.println(this.dia+"-"+mesActual+"-"+this.anyo);
+		System.out.printf("%02d-"+mesActual+"-%d",this.dia, this.anyo);
 	}
 
 	/**
@@ -129,10 +136,12 @@ class Fecha {
 	 * @return boolean
 	 */
 	public boolean isEqual(Fecha otraFecha) {
-		if (otraFecha.getDia()==this.dia){
-		}else if (otraFecha.getMes()==this.mes){
-		}else if (otraFecha.getAnyo()==this.anyo){
-			return true;
+		if (otraFecha.getDia() == this.dia) {
+			if (otraFecha.getMes() == this.mes) {
+				if (otraFecha.getAnyo() == this.anyo) {
+					return true;
+				}
+			}
 		}
 		return false;
 	}
@@ -143,23 +152,52 @@ class Fecha {
 	 * @return int dia semana
 	 */
 	public int getNumeroSemana() {
-		return 0;
+		// Inicializar un contador de semanas
+		// Recorrer todos los meses del año
+		// Para cada mes recorrer todos sus días (utilizar el método getDiasMes)
+		// Para cada objeto fecha (nace de el dia, mes y año recorrido) preguntar si esa fecha es "domingo" (utilizar el método getDiaSemana)
+		// Si el dia coincide con this --> devolver contador
+		// Si es domingo --> incrementar contador de semanas
+
+		int contadorSemanas = 1;
+
+		for (int i = 1; i <=MESES_TEXTO.length ; i++) {
+			for (int j = 1; j <=getDiasMes(i,this.anyo); j++) {
+				Fecha dias = new Fecha(j,i,anyo);
+				if (this.isEqual(dias)){
+					return contadorSemanas;
+				}
+
+				if (dias.getDiaSemana().equals("domingo")){
+					contadorSemanas++;
+				}
+			}
+		}
+		return contadorSemanas;
 	}
 
 	/**
 	 * Retorna el dia correspondiente de la semana en formato String
+	 *
 	 * @return String
 	 */
 	public String getDiaSemana() {
-		return null;
+		return DIAS_TEXTO[getDiasTranscurridosOrigen()%7];
 	}
 
 	/**
 	 * Solo Festivo sábado o domingo
+	 *
 	 * @return boolean
 	 */
 	public boolean isFestivo() {
-		return false;
+		boolean festivo = true;
+		if (getDiaSemana()=="sábado"||getDiaSemana()=="domingo"){
+			festivo = true;
+		}else {
+			festivo = false;
+		}
+		return festivo;
 	}
 
 	/**
@@ -168,8 +206,29 @@ class Fecha {
 	 *
 	 * @return boolean
 	 */
-	public Fecha anyadir(int numDias){
-		return null;
+	public Fecha anyadir(int numDias) {
+		Fecha fechaConDiasAnyadidos = clone();
+		int diasNuevos = fechaConDiasAnyadidos.getDia();
+		int mesNuevo = fechaConDiasAnyadidos.getMes();
+		int anyoNuevo = fechaConDiasAnyadidos.getAnyo();
+
+		if (numDias <= 30 && numDias >= 0) {
+			for (int i = 0; i <numDias ; i++) {
+				if (diasNuevos < getDiasMes(mesNuevo,anyoNuevo)) {
+					diasNuevos = diasNuevos + 1;
+				}else{
+					if (mesNuevo==12){
+						mesNuevo = 1;
+						diasNuevos = 1;
+						anyoNuevo = anyoNuevo+1;
+					}else{
+						mesNuevo = mesNuevo + 1;
+						diasNuevos = 1;
+					}
+					}
+				}
+			}
+		return new Fecha(diasNuevos,mesNuevo,anyoNuevo);
 	}
 
 	/**
@@ -178,20 +237,46 @@ class Fecha {
 	 *
 	 * @return boolean
 	 */
-	public Fecha restar(int numDias){
-		return null;
+	public Fecha restar(int numDias) {
+		Fecha fechaConDiasAnyadidos = clone();
+		int diasNuevos = fechaConDiasAnyadidos.getDia();
+		int mesNuevo = fechaConDiasAnyadidos.getMes();
+		int anyoNuevo = fechaConDiasAnyadidos.getAnyo();
+
+		if (numDias <= 30 && numDias >= 0) {
+			for (int i = 0; i <numDias ; i++) {
+				if (diasNuevos > 1) {
+					diasNuevos = diasNuevos - 1;
+				}else {
+					if (mesNuevo == 1) {
+						mesNuevo = 12;
+						diasNuevos = getDiasMes(mesNuevo,anyoNuevo);
+						anyoNuevo = anyoNuevo - 1;
+					} else {
+						mesNuevo = mesNuevo - 1;
+						diasNuevos = getDiasMes(mesNuevo,anyoNuevo);
+					}
+				}
+				}
+			}
+		return new Fecha(diasNuevos,mesNuevo,anyoNuevo);
 	}
 
-	public boolean isCorrecta(){
-		return false;
+	public boolean isCorrecta() {
+		if (dia <= getDiasMes(mes,anyo)&&dia>=1){
+			return true;
+		}else{
+			return false;
+		}
 	}
 
 	/**
 	 * Retorna el mes del año en formato text (enero, febrero, marzo,...)
+	 *
 	 * @return char
 	 */
 	private String getMesTexto() {
-		return null;
+		return MESES_TEXTO[mes];
 	}
 
 	/**
@@ -200,7 +285,12 @@ class Fecha {
 	 * @return int
 	 */
 	private int getDiasTranscurridosOrigen() {
-return 0;
+		int dias=0;
+		for (int i = 1; i <= this.anyo-1; i++) {
+			dias=getDiasAnyo(i)+dias;
+		}
+		dias=getDiasTranscurridosAnyo()+dias;
+		return dias;
 	}
 
 	/**
@@ -209,7 +299,14 @@ return 0;
 	 * @return int
 	 */
 	private int getDiasTranscurridosAnyo() {
-		return 0;
+		int total = 0;
+
+		for (int i = 1; i < mes; i++) {
+			total=total+getDiasMes((i),anyo);
+		}
+
+		return total + dia;
+
 	}
 
 	/**
@@ -218,22 +315,65 @@ return 0;
 	 *
 	 * @return boolean
 	 */
-	public static boolean isBisiesto(int anyo){
-		if ((anyo % 4 == 0) && ((anyo % 100 != 0) || (anyo % 400 == 0))){
+	public static boolean isBisiesto(int anyo) {
+		if ((anyo % 4 == 0) && ((anyo % 100 != 0) || (anyo % 400 == 0))) {
 			return true;
 		}
 		return false;
 	}
 
 	/**
-	 *  Calcula el número de días que tiene el @mes en el @año pasado como argumento
-	 *  Deberás hacer uso del métodos isBisiesto
+	 * Calcula el número de días que tiene el @mes en el @año pasado como argumento
+	 * Deberás hacer uso del métodos isBisiesto
 	 *
-	 *  @return int total dias mes en curso
+	 * @return int total dias mes en curso
 	 */
 	public static int getDiasMes(int mes, int anyo) {
-		return 0;
+		int diasMes = 0;
+		switch (mes) {
+			case 1:
+				diasMes = 31;
+			break;
+			case 2:
+				if (isBisiesto(anyo) == true) {
+					diasMes = 29;
+				} else {
+					diasMes = 28;
+				}
+				break;
+			case 3:
+				diasMes = 31;
+			break;
+			case 4:
+				diasMes = 30;
+			break;
+			case 5:
+				diasMes = 31;
+			break;
+			case 6:
+				diasMes = 30;
+			break;
+			case 7:
+				diasMes = 31;
+			break;
+			case 8:
+				diasMes = 31;
+			break;
+			case 9:
+				diasMes = 30;
+			break;
+			case 10:
+				diasMes = 31;
+			break;
+			case 11:
+				diasMes = 30;
+			break;
+			case 12:
+				diasMes = 31;
+		}
+		return diasMes;
 	}
+
 
 	/**
 	 * Calcula el número total de dias que tiene el año pasado como argumento

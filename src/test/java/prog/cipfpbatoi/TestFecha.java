@@ -134,7 +134,6 @@ public class TestFecha {
         Fecha fechaDiaSiguienteAFechaInicial = new Fecha(16, 1, 2022);
         assertTrue(fechaInicial.anyadir(1).isEqual(fechaDiaSiguienteAFechaInicial), "No se está añadiendo correctamente un día a la fecha 15/1/2022");
 
-
         Fecha fechaInicial2 = new Fecha(30, 12, 2021);
         Fecha fechaDosDiasSiguientesAFechaInicial = new Fecha(1, 1, 2022);
         assertTrue(fechaInicial2.anyadir(2).isEqual(fechaDosDiasSiguientesAFechaInicial), "No se está añadiendo correctamente dos días a la fecha 30/12/2021");
